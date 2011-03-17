@@ -44,28 +44,28 @@ Initially though, this list will be empty. Solve this by creating a new profile:
     panda.post('/profiles.json', {
         'title':    'My custom profile',
         'category': 'desktop',
-        'extname':  'mp4',
+        'extname':  '.mp4', #it's important to put a dot before the extension
         'width':    320,
         'height':   240,
-        'command':  'ffmpeg -i $input_file$ -f mp4 -b 128k $resolution_and_padding$ -y $output_file',
-    });
+        'command':  'ffmpeg -i $input_file$ -f mp4 -b 128k $resolution_and_padding$ -y $output_file$',
+    })
 
 From now on, any video that you upload will be encoded in all available profiles by default. Let's upload a video now:
 
     panda.post('/videos.json', {
         'source_url': 'http://example.com/path/to/video.mp4',
-    });
+    })
 
 It will take some time to encode, depending on the size of the video and other parameters. While you wait, you can check the status of each encoding (one per profile):
 
-    panda.get('/videos/VIDEO_ID/encodings.json');
+    panda.get('/videos/VIDEO_ID/encodings.json')
 
 Eventually, the process will end and each profile will have a URL where you can retrieve the result from.
 
 Finally, you may want to clean up after your tests:
 
-    panda.delete('/videos/VIDEO_ID.json');
-    panda.delete('/profiles/PROFILE_ID.json');
+    panda.delete('/videos/VIDEO_ID.json')
+    panda.delete('/profiles/PROFILE_ID.json')
 
 
 Generating signatures
